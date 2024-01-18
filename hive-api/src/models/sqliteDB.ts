@@ -1,5 +1,4 @@
-// var sqlite3 = require('sqlite3').verbose()
-import * as sqlite3 from "sqlite3"
+import sqlite3 from "sqlite3"
 const DBSOURCE = "db.sqlite"
 
 let db = new sqlite3.Database(DBSOURCE, (err: any) => {
