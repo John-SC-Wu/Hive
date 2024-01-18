@@ -1,0 +1,38 @@
+@hostname = localhost
+@port = 3008
+@host = {{hostname}}:{{port}}
+
+### READ root 
+GET  http://{{host}}/ HTTP/1.1
+content-type: application/json
+
+### READ agents
+GET http://{{host}}/api/agents HTTP/1.1
+content-type: application/json
+
+### CREATE agent 
+POST http://{{host}}/api/agents HTTP/1.1
+content-type: application/json
+
+{
+  "name": "PikaChu", 
+  "email": "pikachu@gmail.com"
+}
+
+### UPDATE agent
+PUT   http://{{host}}/api/agents HTTP/1.1
+content-type: application/json
+
+{
+  "id": 1,
+  "name": "PikaChu", 
+  "email": "pikachu.chiu@gmail.com"
+}
+
+### DELETE agent
+DELETE http://{{host}}/api/agents HTTP/1.1
+content-type: application/json
+
+{
+  "id": 1
+}
