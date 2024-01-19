@@ -19,6 +19,9 @@ class App {
   }
 
   private setController() {
+    // this.app.use('/', (req, res) => {
+    //   res.send("hello Hive2");
+    // })
     this.app.use("/api/agents", agentRoutes)
   }
 
