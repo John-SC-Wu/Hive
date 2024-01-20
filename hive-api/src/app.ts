@@ -1,7 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+// sqlite
 import agentRoutes from './routes/agents'
+// mongoDB
+export const MONGO_URL = "mongodb://localhost:27017/Pokemon";
+import { PokemonController } from "./routes/pokemon.controller";
+import { PokemonService } from "./services/pokemon.service";
+import mongoose, { ConnectOptions } from "mongoose";
 
 class App {
   public app: express.Application;
@@ -9,6 +15,7 @@ class App {
   constructor() {
     this.app = express();
     this.setConfig();
+    this.setMongoConfig();
     this.setController();
   }
 
@@ -18,11 +25,21 @@ class App {
     this.app.use(cors());
   }
 
+  private setMongoConfig() {
+    mongoose.Promise = global.Promise;
+    mongoose.connect(MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    } as ConnectOptions);
+  }
+
   private setController() {
-    // this.app.use('/', (req, res) => {
-    //   res.send("hello Hive2");
-    // })
+    // store in sqlite
     this.app.use("/api/agents", agentRoutes)
+
+    // store in mongoDB
+    const pokemonController = new PokemonController(new PokemonService());
+    this.app.use("/pokemon", pokemonController.router);
   }
 
 }

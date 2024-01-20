@@ -36,3 +36,77 @@ content-type: application/json
 {
   "id": 1
 }
+
+###### POKEMON API ######
+### Get All Pokemon
+GET  http://{{host}}/pokemon/all HTTP/1.1
+content-type: application/json
+# Authorization: Bearer {{ login.response.body.token }}
+
+### Create Pokemon
+POST http://{{host}}/pokemon HTTP/1.1
+content-type: application/json
+Accept: :*/*
+
+{
+  "_id": "602d65bdc14a125e37eb78fd",
+  "name": "PikaChu8", 
+  "gender": "Male", 
+  "type": "Thunder", 
+  "height": 1.6, 
+  "weight": 165, 
+  "photo": "KAchiu!", 
+  "-v": 0
+}
+
+### Update Pokemon
+PUT   http://{{host}}/pokemon/602d65bdc14a125e37eb78ed HTTP/1.1
+content-type: application/json
+# Authorization: Bearer {{ login.response.body.token }}
+
+{
+    "weight": 68,
+    "photo": "kachiu! kachiu!",
+    "__v": 0
+}
+
+### Delete Pokemon
+DELETE http://{{host}}/pokemon/602d65bdc14a125e37eb78fd HTTP/1.1
+content-type: application/json
+# Authorization: Bearer {{ login.response.body.token }}
+### Get All Pokemon
+GET  http://{{host}}/pokemon/all HTTP/1.1
+content-type: application/json
+# Authorization: Bearer {{ login.response.body.token }}
+
+### Create Pokemon
+POST http://{{host}}/pokemon HTTP/1.1
+content-type: application/json
+Accept: :*/*
+
+{
+  "_id": "602d65bdc14a125e37eb78fd",
+  "name": "PikaChu8", 
+  "gender": "Male", 
+  "type": "Thunder", 
+  "height": 1.6, 
+  "weight": 165, 
+  "photo": "KAchiu!", 
+  "-v": 0
+}
+
+### Update Pokemon
+PUT   http://{{host}}/pokemon/602d65bdc14a125e37eb78ed HTTP/1.1
+content-type: application/json
+# Authorization: Bearer {{ login.response.body.token }}
+
+{
+    "weight": 68,
+    "photo": "kachiu! kachiu!",
+    "__v": 0
+}
+
+### Delete Pokemon
+DELETE http://{{host}}/pokemon/602d65bdc14a125e37eb78fd HTTP/1.1
+content-type: application/json
+# Authorization: Bearer {{ login.response.body.token }}
