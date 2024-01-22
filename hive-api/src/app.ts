@@ -1,8 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-// sqlite
-// import agentRoutes from './routes/agents'
+// sqlite3
 import { AgentController } from './routes/agent.controller';
 import { AgentService } from './services/agent.service';
 // mongoDB
@@ -37,9 +36,8 @@ class App {
 
   private setController() {
     // store in sqlite
-    // this.app.use("/api/agents", agentRoutes)
     const agentController = new AgentController(new AgentService());
-    this.app.use("/api/agents", agentController.router);
+    this.app.use("/agents", agentController.router);
 
 
     // store in mongoDB
