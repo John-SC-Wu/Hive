@@ -7,7 +7,7 @@ GET  http://{{host}}/ HTTP/1.1
 content-type: application/json
 
 ### READ agents
-GET http://{{host}}/api/agents HTTP/1.1
+GET http://{{host}}/api/agents/all HTTP/1.1
 content-type: application/json
 
 ### CREATE agent 
@@ -20,17 +20,17 @@ content-type: application/json
 }
 
 ### UPDATE agent
-PUT   http://{{host}}/api/agents HTTP/1.1
+PUT   http://{{host}}/api/agents/ HTTP/1.1
 content-type: application/json
 
 {
   "id": 1,
-  "name": "PikaChu", 
+  "name": "PikaChu3", 
   "email": "pikachu.chiu@gmail.com"
 }
 
 ### DELETE agent
-DELETE http://{{host}}/api/agents HTTP/1.1
+DELETE http://{{host}}/api/agents/ HTTP/1.1
 content-type: application/json
 
 {
@@ -74,6 +74,7 @@ content-type: application/json
 DELETE http://{{host}}/pokemon/602d65bdc14a125e37eb78fd HTTP/1.1
 content-type: application/json
 # Authorization: Bearer {{ login.response.body.token }}
+
 ### Get All Pokemon
 GET  http://{{host}}/pokemon/all HTTP/1.1
 content-type: application/json

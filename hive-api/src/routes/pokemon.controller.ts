@@ -7,7 +7,7 @@ export class PokemonController {
   constructor(private pokemonService: PokemonService) {
     this.router.route("/").get(this.sayHello).post(this.add);
     this.router.route("/all").get(this.findAll);
-    this.router.route("/:id").delete(this.delete).put(this.update);
+    this.router.route("/:id").put(this.update).delete(this.delete);
   }
 
   // --- supporting functions ---

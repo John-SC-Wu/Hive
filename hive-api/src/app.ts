@@ -2,7 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 // sqlite
-import agentRoutes from './routes/agents'
+// import agentRoutes from './routes/agents'
+import { AgentController } from './routes/agent.controller';
 // mongoDB
 export const MONGO_URL = "mongodb://localhost:27017/Pokemon";
 import { PokemonController } from "./routes/pokemon.controller";
@@ -35,7 +36,10 @@ class App {
 
   private setController() {
     // store in sqlite
-    this.app.use("/api/agents", agentRoutes)
+    // this.app.use("/api/agents", agentRoutes)
+    const agentController = new AgentController();
+    this.app.use("/api/agents", agentController.router);
+
 
     // store in mongoDB
     const pokemonController = new PokemonController(new PokemonService());
