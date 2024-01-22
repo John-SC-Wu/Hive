@@ -1,6 +1,6 @@
 node_modules
 dist
 
-# DB files
-db.sqlite
+# DB models
+agents.db
 pokeData
