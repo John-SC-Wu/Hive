@@ -1,5 +1,26 @@
 import { Request, Response, Router } from "express"
 import db from "../models/sqliteDB";
+import { promisify } from "util";
+const query = promisify(db.all).bind(db);
+
+interface IAgentTable {
+  table: string;
+  object: any;
+  id?: number
+}
+const create = async ({ table, object }: IAgentTable) => {
+  const keys = Object.keys(object).join(",");
+  const values = Object.values(object).map((v) => `"${v}"`).join(",");
+  const res = await query(`INSERT INTO ${table} (${keys}) VALUES (${values})`);
+  return res;
+};
+
+const update = async ({ table, id, object }: IAgentTable) => {
+  const pairs = Object.entries(object).map(([k, v]) => `${k}="${v}"`).join(",");
+  const res = await query(`UPDATE ${table} SET ${pairs} WHERE id=${id}`);
+  return res;
+};
+
 
 export class AgentController {
   public router = Router();
@@ -12,21 +33,14 @@ export class AgentController {
 
   private add = async (req: Request, res: Response) => {
     try {
-      const data = {
-        name: req.body.name,
-        email: req.body.email
-      }
-      const sql = "INSERT INTO agents (name, email) VALUES (?,?)";
-      const params = [data.name, data.email]
-      db.run(sql, params, (err: any, result: any) => {
-        if (err) {
-          res.status(400).json({ "error": err.message })
-          return;
+      await create({
+        table: "agents",
+        object: {
+          "name": req.body.name,
+          "email": req.body.email
         }
-        res.json({
-          "message": "success",
-        })
-      })
+      });
+      res.json({ "message": "success" });
     } catch (e: any) {
       res.status(500).send(e.message);
     }
@@ -34,18 +48,9 @@ export class AgentController {
 
   private findAll = async (_: Request, res: Response) => {
     try {
-      const queryStatement = "SELECT * FROM agents"
-      db.all(queryStatement, (err: any, rows: any) => {
-        // console.log(rows)
-        if (err) {
-          res.status(400).json({ "error": err.message });
-          return;
-        }
-        res.json({
-          "message": "success",
-          "data": rows
-        })
-      });
+      const sql = "SELECT * FROM agents"
+      const result = await query(sql);
+      res.json({ "message": "success", "data": result });
     } catch (e: any) {
       res.status(500).send(e.message);
     }
@@ -53,22 +58,15 @@ export class AgentController {
 
   private update = async (req: Request, res: Response) => {
     try {
-      const data = {
+      await update({
+        table: "agents",
         id: req.body.id,
-        name: req.body.name,
-        email: req.body.email
-      }
-      const sql = "UPDATE agents SET name=?,email=? WHERE id=? ";
-      const params = [data.name, data.email, data.id]
-      db.run(sql, params, (err: any, result: any) => {
-        if (err) {
-          res.status(400).json({ "error": err.message })
-          return;
+        object: {
+          "name": req.body.name,
+          "email": req.body.email
         }
-        res.json({
-          "message": "success",
-        })
-      })
+      });
+      res.json({ "message": "success" });
     } catch (e: any) {
       res.status(500).send(e.message);
     }
@@ -76,39 +74,9 @@ export class AgentController {
 
   private delete = async (req: Request, res: Response) => {
     try {
-      const data = {
-        id: req.body.id
-      }
-
-      // --- check the user ---
-      const queryStatement = "SELECT * FROM agents WHERE id=?"
-      const params = [data.id]
-      db.get(queryStatement, params, (err: any, row: any) => {
-        if (err) {
-          res.status(400).json({ "error": err.message });
-          return;
-        }
-        if (typeof row === "undefined") {
-          res.status(404).send({
-            "message": "User NotFound"
-          })
-          return;
-        }
-        const sql = "DELETE FROM agents WHERE id=?";
-        const params1 = [data.id]
-        db.run(sql, params1, (err: any, result: any) => {
-          if (err) {
-            res.status(400).json({
-              "message": err.message
-            })
-            return;
-          }
-          res.json({
-            "message": "success"
-          })
-        })
-      })
-
+      const sql = `DELETE FROM agents WHERE id=${req.body.id}`;
+      await query(sql);
+      res.json({ "message": "success" });
     } catch (e: any) {
       res.status(500).send(e.message);
     }

@@ -15,8 +15,8 @@ POST http://{{host}}/api/agents HTTP/1.1
 content-type: application/json
 
 {
-  "name": "PikaChu", 
-  "email": "pikachu@gmail.com"
+  "name": "PikaChu 5", 
+  "email": "pikachu.5@gmail.com"
 }
 
 ### UPDATE agent
@@ -24,9 +24,9 @@ PUT   http://{{host}}/api/agents/ HTTP/1.1
 content-type: application/json
 
 {
-  "id": 1,
-  "name": "PikaChu3", 
-  "email": "pikachu.chiu@gmail.com"
+  "id": 2,
+  "name": "PikaChu66", 
+  "email": "pikachu.chiu.66@gmail.com"
 }
 
 ### DELETE agent
@@ -34,7 +34,7 @@ DELETE http://{{host}}/api/agents/ HTTP/1.1
 content-type: application/json
 
 {
-  "id": 1
+  "id": 2
 }
 
 ###### POKEMON API ######

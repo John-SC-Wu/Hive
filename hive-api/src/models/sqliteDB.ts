@@ -17,14 +17,13 @@ let db = new sqlite3.Database(DBSOURCE, (err: any) => {
             email text UNIQUE,
             CONSTRAINT email_unique UNIQUE (email)
             );`;
-    // db.run(sqlCreate, err => {
-    //   console.log('i am failing')
-    //   console.log(err)
-    //   if (err) {
-    //     return console.error(err.message);
-    //   }
-    //   console.log("Successful creation of the 'agents' table");
-    // });
+    db.run(sqlCreate, err => {
+      console.log(err)
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log("Successful creation of the 'agents' table");
+    });
   }
 })
 
