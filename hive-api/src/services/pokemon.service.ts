@@ -15,17 +15,6 @@ export class PokemonService {
     return newPokemon.save();
   }
 
-  public async delete(id: string) {
-    // const deletedPokemon: Promise<IPokemon> = await Pokemon.findByIdAndDelete(id).exec();
-    const deletedPokemon = await Pokemon.findByIdAndDelete(id).exec();
-
-    if (!deletedPokemon) {
-      throw new Error(`Pokemon with id '${id}' not found`);
-    }
-
-    return deletedPokemon;
-  }
-
   public async update(id: string, pokemon: IPokemon) {
     // const updatedPokemon: Promise<IPokemon> = await Pokemon.findByIdAndUpdate(
     const updatedPokemon = await Pokemon.findByIdAndUpdate(
@@ -39,4 +28,16 @@ export class PokemonService {
 
     return updatedPokemon;
   }
+
+  public async delete(id: string) {
+    // const deletedPokemon: Promise<IPokemon> = await Pokemon.findByIdAndDelete(id).exec();
+    const deletedPokemon = await Pokemon.findByIdAndDelete(id).exec();
+
+    if (!deletedPokemon) {
+      throw new Error(`Pokemon with id '${id}' not found`);
+    }
+
+    return deletedPokemon;
+  }
+
 }
