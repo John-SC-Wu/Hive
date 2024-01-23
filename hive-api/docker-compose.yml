@@ -11,3 +11,12 @@ services:
       - MONGO_INITDB_DATABASE=Pokemon
     ports:
       - 27017:27017
+
+  redis:
+    restart: always
+    container_name: redis
+    image: redis:alpine
+    volumes:
+      - ./cacheData:/data
+    ports:
+      - 6379:6379

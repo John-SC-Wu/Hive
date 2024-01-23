@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import { CacheController } from './routes/cache.controller';
 // sqlite3
 import { AgentController } from './routes/agent.controller';
 import { AgentService } from './services/agent.service';
@@ -9,6 +10,7 @@ export const MONGO_URL = "mongodb://localhost:27017/Pokemon";
 import { PokemonController } from "./routes/pokemon.controller";
 import { PokemonService } from "./services/pokemon.service";
 import mongoose, { ConnectOptions } from "mongoose";
+
 
 class App {
   public app: express.Application;
@@ -35,6 +37,10 @@ class App {
   }
 
   private setController() {
+
+    const cacheController = new CacheController();
+    this.app.use("/cache", cacheController.router);
+
     // store in sqlite
     const agentController = new AgentController(new AgentService());
     this.app.use("/agents", agentController.router);

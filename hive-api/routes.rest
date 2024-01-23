@@ -2,6 +2,10 @@
 @port = 3008
 @host = {{hostname}}:{{port}}
 
+### READ cache 
+GET  http://{{host}}/cache/ HTTP/1.1
+content-type: application/json
+
 ### READ root 
 GET  http://{{host}}/ HTTP/1.1
 content-type: application/json
