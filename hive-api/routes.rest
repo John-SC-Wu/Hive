@@ -2,6 +2,44 @@
 @port = 3008
 @host = {{hostname}}:{{port}}
 
+
+########### book (typeorm) ###############
+
+### READ books 
+GET  http://{{host}}/books/ HTTP/1.1
+content-type: application/json
+
+### CREATE book 
+POST http://{{host}}/books/ HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Wonderland 2", 
+  "description": "a advanture in wonderland",
+  "format": "epub"
+}
+
+### READ book 
+GET http://{{host}}/books/1 HTTP/1.1
+content-type: application/json
+
+### UPDATE book 
+PUT http://{{host}}/books/1 HTTP/1.1
+content-type: application/json
+
+{
+  "name": "old man and ocean 6" 
+}
+
+### DELETE book 
+GET http://{{host}}/books/2 HTTP/1.1
+content-type: application/json
+
+
+
+
+########### cache ##############
+
 ### READ cache 
 GET  http://{{host}}/cache/ HTTP/1.1
 content-type: application/json

@@ -1,7 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { CacheController } from './routes/cache.controller';
+// typeorm
+import { BookController } from './routes/book.controller';
+
+// import { CacheController } from './routes/cache.controller';
 // sqlite3
 import { AgentController } from './routes/agent.controller';
 import { AgentService } from './services/agent.service';
@@ -38,8 +41,12 @@ class App {
 
   private setController() {
 
-    const cacheController = new CacheController();
-    this.app.use("/cache", cacheController.router);
+    const bookController = new BookController();
+    this.app.use("/books", bookController.router);
+
+
+    // const cacheController = new CacheController();
+    // this.app.use("/cache", cacheController.router);
 
     // store in sqlite
     const agentController = new AgentController(new AgentService());
